@@ -187,7 +187,8 @@
 \usepackage[pdftex]{graphicx}
 
 % bibliography
-\usepackage[square,sort,comma,numbers]{natbib} %better placed at the document level?
+\usepackage[square,comma,numbers]{natbib} %better placed at the document level?
+% \usepackage{natbib} %better placed at the document level?
 
 % page headings and numbering
 \makeatletter
