@@ -5,7 +5,7 @@
 \gradterm{Spring 2014} %The semester that you are going to turn this in.
 \advisor{Richard Eykholt}
 \coadvisor{Test Test} %optional
-\committee{Mingzong Wu \and Raymond Steve Robinson \and Martin Gelfand \and Patrick Shipman} %separate committee names with \and
+\committee{Mingzhong Wu \and Raymond Steve Robinson \and Martin Gelfand \and Patrick Shipman} %separate committee names with \and
 %committee names should not have any honorifics (i.e. NO Dr., PhD, professor, etc.)  Just names.
 \copyrighttext{Copyright by Leif Anderson 2014 \\ All Rights Reserved} %this is optional.
 
@@ -16,6 +16,7 @@
 \newcommand{\pby}[1]{\frac{\partial}{\partial#1}}
 
 \usepackage{lipsum}%this package provides nonsense text for testing document layouts.  Not needed for real thesis.
+% \setcounter{tocdepth}{3}
 
 \begin{document}
 \frontmatter
@@ -23,14 +24,14 @@
 
 % \input{abstract}
 \begin{abstract}
-This is the abstract right here. I wanted a short input, so I typed these couple sentences, then I included some latin filler: \lipsum[1-4]
+This is the abstract right here. I wanted a short input, so I typed these couple sentences, then I included some Latin filler: \lipsum[1-4]
 
 End of Abstract.
 \end{abstract}
 %note that for amsbook (which is basically the class we are copying), the abstract must be declared before the title.  It prints as part of maketitle.
 
 \begin{acknowledgements}
-Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help defeating the rules of the graduate school; to Katherine Zaunbrecher for her proofreading and motivation help; and to many others.
+Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help understanding the rules of the graduate school; to Katherine Zaunbrecher for her proofreading and motivation help; and to many others.
 \end{acknowledgements}%this is optional.  It must be declared before maketitle, a lot like abstract.  Consider having this in a separate file.
 
 \maketitle
@@ -46,16 +47,33 @@ Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help defeating
 \mainmatter %switches page numbering to normal, resets page counter, etc.
 \chapter{Introduction}
 
-Before beginning, here is a sentence containing a citation\cite{multifrac}.
+Before beginning, here is a sentence containing a citation\cite{multifrac}.  Here is another\cite{ebalett}, and another\cite{corrdim}.  Note the order in which the numbers appear, and compare to the order in which they appear in the bibliography.  The user can choose to sort by order of citation, alphabetical order, order of publication, etc; any of the standard \verb-bibtex- options should be available.
 
-Now a little text: \lipsum[1-2]
+Now a little text: \lipsum[1]
 
-Here is a paragraph referencing a figure: A phenominological demonstration of this behavior is shown in figure \ref{2010_09_sparse1d}.  Various $D_q$ curves were computed for the logistic map, with different numbers of points used to populate the histogram.  When the histogram is too sparse, the curves asymptotically approach a wide spread of values for $q\to -\infty$.  These values are not related to the actual $D_{-\infty}$ result.
+\section{This is a new Section}
+
+Here is a paragraph referencing a figure: A phenomenological demonstration of this behavior is shown in figure \ref{2010_09_sparse1d}.  Various $D_q$ curves were computed for the logistic map, with different numbers of points used to populate the histogram.
+
+\subsection{This is a subsection}
+
+This subsection contains a figure and a table. \lipsum[1-2]
 
 \begin{figure}[!ht]
 \includegraphics[width=.9\textwidth]{20100922_progression.png}
-\caption[Plots demonstrating the effect of sparse data on $D_q$ convergence.]{Plots of the $D_q$ curve for the logistic map as the total number of points is varied.  There were 10,000 bins in the histogram.  Notice that $D_q$ settles down to the expected curve in the general vacinity of 100 points per cell, although in reality this number is slightly higher, since some cells are empty.  Also notice that although $N_{\{n=1\}}=0$ appears to be a necessary requirement, it is not sufficient.  All these curves were calculated with the naive algorithm. \label{2010_09_sparse1d}}
+\caption[Plots demonstrating the effect of sparse data on $D_q$ convergence.]{Plots of the $D_q$ curve for the logistic map as the total number of points is varied.  There were 10,000 bins in the histogram.  Notice that $D_q$ settles down to the expected curve in the general vicinity of 100 points per cell, although in reality this number is slightly higher, since some cells are empty.  Also notice that although $N_{\{n=1\}}=0$ appears to be a necessary requirement, it is not sufficient.  All these curves were calculated with the naive algorithm. \label{2010_09_sparse1d}}
 \end{figure}
+
+\begin{table}
+\caption[Small Table]{Small test table with $a$ and $b$}
+\label{table:smalltab}
+\begin{tabular}{c|c}
+$a$ & $b$ \\
+\hline
+1 & 2 \\
+2 & 3 \\
+\end{tabular}
+\end{table}
 
 \chapter{New Methods}
 
@@ -63,7 +81,13 @@ This is the second chapter, and here is a fact which we support with a citation\
 
 \section{A new definition of dimension?}
 
-Will you unite the disparate definitions of the current science? \lipsum[1]
+\begin{figure}
+\includegraphics[width=.8\textwidth]{fakefigure.png}
+\caption[Test figure in chapter 2]{Here is another test figure, this one placed in another chapter, to double-check the figure numbering.}
+\label{fig:newchap}
+\end{figure}
+
+Will you unite the disparate definitions of the current science? Also, note that we just included figure \ref{fig:newchap}. \lipsum[1]
 
 \subsection{A subsection}
 

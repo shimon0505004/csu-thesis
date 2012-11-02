@@ -209,7 +209,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%
 
-% \setcounter{tocdepth}{2}  %limits how deep sections are listed in the ToC, and how far they are numbered in the body.
+% \setcounter{tocdepth}{3}  %limits how deep sections are listed in the ToC, and how far they are numbered in the body.
    %  1 goes to sections, 2 to subsections, etc.
 
 % See the ams manual thing, page 40 or so, for the beginning of the section, subsection, and table of contents formatting stuff.
@@ -303,7 +303,15 @@
 \def\subsubsection{\@startsection{subsubsection}{3}%
   \normalparindent\z@{-.5em}%
   {\normalfont\itshape}}%sub sub sections are italics.
-\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}%displays sections as 1.1, 1.2, etc rather than 1, 2, etc.
+
+% \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}%displays sections as 1.1, 1.2, etc rather than 1, 2, etc.
+% this turned out to be a little heavy-handed.  There are better ways to do it.
+
+% This batch of commands makes the chapter number show up within several of the other numbers.
+\numberwithin{table}{chapter}
+\numberwithin{figure}{chapter}
+\numberwithin{section}{chapter}
+% numberwithin is really more of a taste thing.  It's an option that can be set within amsbook.
 
 % \renewcommand{\bibsection}{%
 % }
