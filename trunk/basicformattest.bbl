@@ -1,21 +1,23 @@
 \begin{thebibliography}{1}
 
-\bibitem{coxlittleoshea}
-David~A. Cox, John Little, and Donal O'Shea.
-\newblock {\em Ideals, Varieties, and Algorithms: An Introduction to
-  Computational Algebraic Geometry and Commutative Algebra}.
-\newblock Springer, 3rd edition, 2007.
+\bibitem{multifrac}
+T.~C. Halsey, M.~H. Jensen, L.~P. Kadanoff, I.~Procaccia, and B.~I. Shraiman,
+  ``Fractal measures and their singularities; the characterization of strange
+  sets,'' {\em {Phys}ical {Rev}iew {A}}, vol.~33, pp.~1141--1150, feb 1986.
 
-\bibitem{robot_homotopy}
-Eric Lee and Constantinos Mavroidis.
-\newblock Solving the geometric design problem of spatial {3R} robot
-  manipulators using polynomial homotopy continuation.
-\newblock {\em J. Mech. Des.}, 124:653--661, December 2002.
+\bibitem{coxlittleoshea}
+D.~A. Cox, J.~Little, and D.~O'Shea, {\em Ideals, Varieties, and Algorithms: An
+  Introduction to Computational Algebraic Geometry and Commutative Algebra}.
+\newblock Springer, 3rd~ed., 2007.
 
 \bibitem{Yorke1989}
-T.~Y. Li, Tim Sauer, and J.~A. Yorke.
-\newblock The cheater's homotopy: An efficient procedure for solving systems of
-  polynomial equations.
-\newblock {\em SIAM J. Numer. Anal.}, 26(5):pp. 1241--1251, 1989.
+T.~Y. Li, T.~Sauer, and J.~A. Yorke, ``The cheater's homotopy: An efficient
+  procedure for solving systems of polynomial equations,'' {\em SIAM J. Numer.
+  Anal.}, vol.~26, no.~5, pp.~pp. 1241--1251, 1989.
+
+\bibitem{robot_homotopy}
+E.~Lee and C.~Mavroidis, ``Solving the geometric design problem of spatial {3R}
+  robot manipulators using polynomial homotopy continuation,'' {\em J. Mech.
+  Des.}, vol.~124, pp.~653--661, Dec. 2002.
 
 \end{thebibliography}
