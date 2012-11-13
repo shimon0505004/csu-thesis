@@ -519,7 +519,11 @@
 \renewcommand{\maketitle}{%
 	\begin{titlepage}
 		\begin{center}
-			\MakeUppercase{Dissertation}
+			\ifphd
+				\MakeUppercase{Dissertation}
+			\else
+				\MakeUppercase{Thesis}
+			\fi
 % 			{\large\scshape Dissertation}
 % 			\textsc{Dissertation}
 			~\vfill
