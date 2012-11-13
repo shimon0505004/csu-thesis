@@ -14,18 +14,22 @@
 % Licensed under the CC-GNU GPL version 2.0 or later.
 % See http://creativecommons.org/licenses/GPL/2.0
 
-\ProvidesClass{csuthesis}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{csuthesis}[2012/11/12 Colorado State University Thesis class]
 
-\LoadClass[12pt, oneside]{amsbook}
+
 %this is basically going to be a class wrapper that takes amsbook and
 % changes the formatting as little as possible to make it conform to 
 % the dumber, uglier CSU standards.
-
-
-% \DeclareOption{masters}{%
-%   \@phdfalse
-% }
-% more here later.
+\newif\ifphd \phdtrue
+\newif\ifmasterofscience \masterofsciencetrue
+\DeclareOption{masters}{\phdfalse}
+\DeclareOption{nonscience}{\masterofsciencefalse}
+% \DeclareOption{oneside}{\OptionNotUsed}
+\DeclareOption{twoside}{\OptionNotUsed}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
+\ProcessOptions\relax
+\LoadClass[12pt, oneside]{amsbook}
 
 % fields that user can set (in addition to title, author, etc)
 
@@ -51,7 +55,17 @@
 
 
 \makeatletter
-
+	\global \let \@author \@empty 
+	\global \let \@date \@empty 
+	\global \let \@title \@empty
+	\global \let \@departmentname \@empty
+% 	\global \let \@committee \@empty
+	\global \let \@gradterm \@empty
+	\global \let \@advisor \@empty
+% 	There might be some inconsistencies here.
+% 	Sometimes I used \undefined, other times I used \@empty
+	
+	
 	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{ and }{\\ \>}{#1}}}%
 	\newcommand{\@committee}{\@latex@warning@no@line{No \noexpand\committee given}}%
 	
@@ -470,6 +484,8 @@
 % \fi
 % }
 % the acknowledgements will basically be a copy of the abstract.
+% In fact, I copied the definition of abstract, and changed a
+% couple tiny things.  I even copied their comments mostly.
 \newbox\ackbox
 \newenvironment{acknowledgements}{%
   \ifx\maketitle\relax
@@ -481,6 +497,8 @@
 	\begin{center}{\scshape Acknowledgements}\end{center}
 }{%
 	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
+	% Go ahead, comment it out.  But if you're here you probably know how much work went into this.
+	% I call this my little "no need to thank me" easter egg.
   \endlist\egroup
   \ifx\@setack\relax \@setacka \fi
 }
@@ -494,10 +512,11 @@
     \prevdepth\z@ % because \abstractbox is a vtop
   \fi
 }
-%Now we overwrite \maketitle
-%the original had a lot more error handling, which I have ignored here.
+% Now we overwrite \maketitle
+% the original had a lot more error handling, which I have ignored here.
+% The original was also a lot more elegant.  Begin hack and slash.
 % Our \maketitle will be huge, and will do everything needed at the beginning: title page, abstract, acknowledgements, copyright, etc.
-\def \maketitle {%
+\renewcommand{\maketitle}{%
 	\begin{titlepage}
 		\begin{center}
 			\MakeUppercase{Dissertation}
@@ -520,26 +539,47 @@
 % 			~\\
 % 			blank line
 			\ifx @author \@empty
-				\relax
+				\relax% Look, error handling!
 			\else
 				\@author \\
 			\fi
 % 			\@author
 % % 			blank line
 % 			~\\
-			\@departmentname
+			\ifx\@empty\@departmentname
+				\MakeUppercase{Department Name not defined}
+			\else
+				\@departmentname
+			\fi
+% 			\@departmentname
 % % 			some space
 			~\vfill
 			In partial fulfullment of the requirements \\
-			For the Degree of Doctor of Philosophy \\ % The inconsistent capitalization between this line and the previous is required by the graduate school.
+			\ifphd
+				For the Degree of Doctor of Philosophy \\ % The inconsistent capitalization between this line and the previous is required by the graduate school.
+			\else
+				\ifmasterofscience
+					For the Degree of Master of Science \\
+				\else
+					For the Degree of Master of the Arts \\
+				\fi
+			\fi
 			Colorado State University \\
 			Fort Collins, Colorado \\
-			\@gradterm
+			\ifx\@gradterm\@empty
+				\MakeUppercase{gradterm not defined}
+			\else
+				\@gradterm
+			\fi
 			~\vfill
 		\end{center}
 		% left align:
 		\begin{singlespace}
-		Doctoral Committee:\\
+		\ifphd
+			Doctoral Committee:\\
+		\else
+			Master's Committee:\\
+		\fi
 		% blank line
 		\begin{tabbing}
 		\hspace*{0.5in}\=

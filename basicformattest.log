@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.4)  1 NOV 2012 19:49
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2011.4.4)  10 NOV 2012 23:30
 entering extended mode
  %&-line parsing enabled.
 **basicformattest.tex
@@ -7,12 +7,17 @@ LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
 yphenation, loaded.
 (./csuthesis.cls
-Document Class: csuthesis 
+Document Class: csuthesis 2012/11/12 Colorado State University Thesis class
 (/usr/share/texmf-texlive/tex/latex/amscls/amsbook.cls
 Document Class: amsbook 2009/07/02 v2.20.1
 \linespacing=\dimen102
 \normalparindent=\dimen103
 \normaltopskip=\skip41
+
+Class csuthesis Warning: When the draft option is used, the \includegraphics
+(csuthesis)              command will print blank placeholder boxes
+(csuthesis)              for the graphics.
+
 (/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip42
@@ -200,24 +205,24 @@ File: lipsum.dtx 2005/01/26 v1.0 150 paragraphs of Lorem Ipsum dummy text
 ) (./basicformattest.aux)
 \openout1 = `basicformattest.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for U+msa on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 20.
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -269,7 +274,7 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 \MPnumerator=\count111
 \everyMPtoPDFconversion=\toks31
 )
-Underfull \hbox (badness 10000) in paragraph at lines 36--36
+Underfull \hbox (badness 10000) in paragraph at lines 37--37
 
  []
 
@@ -315,43 +320,37 @@ Underfull \vbox (badness 3449) has occurred while \output is active []
 
 ]
 Chapter 1
-(./intro.tex) (./problems.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1
+[1
 
 
 
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2]
+LaTeX Warning: File `20100922_progression.png' not found on input line 63.
 
-LaTeX Warning: File `20100922_progression.png' not found on input line 28.
-
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3]
-[4]
+[2] [3]
 Chapter 2
-[5
+
+LaTeX Warning: File `fakefigure.png' not found on input line 85.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4
 
 
 ]
-Underfull \vbox (badness 1577) has occurred while \output is active []
+[5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-[8
+[7
 
 
-] [9
+] [8
 
-] (./basicformattest.bbl) [10
+] (./basicformattest.bbl) [9
 
 
 ]
@@ -359,43 +358,40 @@ Appendix A
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11
+ [10
 
 
 ]
-[12]
+[11]
 Appendix B
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [13
+ [12
 
 
 ]
-[14] (./basicformattest.aux) ) 
+[13] (./basicformattest.aux) ) 
 Here is how much of TeX's memory you used:
- 3267 strings out of 495061
- 40464 string characters out of 1182622
- 196519 words of memory out of 3000000
- 6230 multiletter control sequences out of 15000+50000
+ 3287 strings out of 495061
+ 40758 string characters out of 1182622
+ 196885 words of memory out of 3000000
+ 6255 multiletter control sequences out of 15000+50000
  12000 words of font info for 47 fonts, out of 3000000 for 9000
  189 hyphenation exceptions out of 8191
- 40i,7n,31p,1497b,230s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,8n,31p,737b,230s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsf
 onts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
-ex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
-nts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.p
-fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
-are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on basicformattest.pdf (22 pages, 183353 bytes).
+mi12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+mf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/f
+onts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on basicformattest.pdf (21 pages, 154689 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
+ 110 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
