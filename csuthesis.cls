@@ -494,7 +494,8 @@
   \fi
   \global\setbox\ackbox=\vtop \bgroup
 %     \begin{center}\MakeUppercase{Acknowledgements}\end{center}
-	\begin{center}{\scshape Acknowledgements}\end{center}
+	\begin{center}{\scshape Acknowledgements}\end{center}%blank line below here so acknowledgements starts indented (to match abstract)
+	
 }{%
 	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
 	% Go ahead, comment it out.  But if you're here you probably know how much work went into this.
@@ -529,7 +530,8 @@
 			~\vfill
 % 			\begin{doublespace}
 % 			{\MakeUppercase{\@title}}
-			{\large\scshape \@title}
+% 			{\large\scshape \@title}
+			{\scshape \@title}
 % 			\end{doublespace}
 % 			I think subtitles are not allowed.
 % 			\ifx \@subtitle \@empty
