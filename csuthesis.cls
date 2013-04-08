@@ -66,7 +66,7 @@
 % 	Sometimes I used \undefined, other times I used \@empty
 	
 	
-	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{ and }{\\ \>}{#1}}}%
+	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{\\ \>}{\\ \>}{#1}}}%
 	\newcommand{\@committee}{\@latex@warning@no@line{No \noexpand\committee given}}%
 	
 	% \addtoiargdef{\committee}{%
@@ -521,9 +521,11 @@
 	\begin{titlepage}
 		\begin{center}
 			\ifphd
-				\MakeUppercase{Dissertation}
+% 				\MakeUppercase{Dissertation}
+				{scshape Dissertation}
 			\else
-				\MakeUppercase{Thesis}
+% 				\MakeUppercase{Thesis}
+				{\scshape Thesis}
 			\fi
 % 			{\large\scshape Dissertation}
 % 			\textsc{Dissertation}
