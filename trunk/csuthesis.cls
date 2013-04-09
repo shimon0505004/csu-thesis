@@ -241,10 +241,11 @@
 % \renewcommand{\listtablename}{\MakeUppercase{List of Tables}}
 % \renewcommand{\bibname}{\MakeUppercase{Bibliography}}
 % \renewcommand{\indexname}{\MakeUppercase{Index}}
+% Hack-ish:
 \renewcommand{\contentsname}{{\scshape Table of Contents}}
 \renewcommand{\listfigurename}{{\scshape List of Figures}}
 \renewcommand{\listtablename}{{\scshape List of Tables}}
-\renewcommand{\bibname}{{\scshape Bibliography}}
+% \renewcommand{\bibname}{Bibliography}
 \renewcommand{\indexname}{{\scshape Index}}
 % \def\tableofcontents{%
 %   \@starttoc{toc}\contentsname
@@ -330,7 +331,10 @@
 % \renewcommand{\bibsection}{%
 % }
 % \renewcommand\bibsection{\chapter*{\bibname}}{}%existing command
-\renewcommand\bibsection{\centering\bibname \addcontentsline{toc}{chapter}{{\scshape \bibname}} ~\\ ~\\}{}% seems like this sort of overwrite 
+% \renewcommand{\@bibtitlestyle}{%
+%   \@xp\chapter\@xp*\@xp{\bibname}%
+% }
+\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} ~\\ ~\\}{}% seems like this sort of overwrite 
 % is the better spot to make formatting changes, rather than at the \bibname level.  uppercase was a name change, but smallcaps is a font change.
 % we may be setting \scshape twice.  Not that it really matters.
 % \renewcommand{\listfigurename}{\normalfont \normalsize \MakeUppercase{List of Figures}}
@@ -522,7 +526,7 @@
 		\begin{center}
 			\ifphd
 % 				\MakeUppercase{Dissertation}
-				{scshape Dissertation}
+				{\scshape Dissertation}
 			\else
 % 				\MakeUppercase{Thesis}
 				{\scshape Thesis}
