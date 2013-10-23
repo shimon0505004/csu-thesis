@@ -217,16 +217,8 @@
 \makeatother
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%           customizing the table of contents appearance
-%
-%%%%%%%%%%%%%%%%%%%%%%
-
 % \setcounter{tocdepth}{3}  %limits how deep sections are listed in the ToC, and how far they are numbered in the body.
    %  1 goes to sections, 2 to subsections, etc.
-
-% See the ams manual thing, page 40 or so, for the beginning of the section, subsection, and table of contents formatting stuff.
 
 \makeatletter
 % \ifx\@tempa\undefined
@@ -319,6 +311,13 @@
   \normalparindent\z@{-.5em}%
   {\normalfont\itshape}}%sub sub sections are italics.
 
+
+% Thanks to Chris Strickland for these two lines.
+% They should prevent three-digit figure and table numbers
+% from running over the name of the fig/tab in the T.o.C.
+\def\l@figure#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
+\def\l@table#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
+
 % \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}%displays sections as 1.1, 1.2, etc rather than 1, 2, etc.
 % this turned out to be a little heavy-handed.  There are better ways to do it.
 
@@ -335,7 +334,8 @@
 %   \@xp\chapter\@xp*\@xp{\bibname}%
 % }
 % come back to this:
-\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \vspace{-\baselineskip}}{}% seems like 
+\renewcommand\bibsection{\begin{singlespace} \begin{center} {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}}  \vspace{-0.5\baselineskip}\end{center}\end{singlespace}}
+% \renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \vspace{-\baselineskip}}{}% seems like 
 % this sort of overwrite is the better spot to make formatting changes, rather than at the \bibname level.  
 % We had two ~\\ up in there.
 % uppercase was a name change, but smallcaps is a font change.
