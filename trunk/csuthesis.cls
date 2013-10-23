@@ -245,7 +245,7 @@
 \renewcommand{\contentsname}{{\scshape Table of Contents}}
 \renewcommand{\listfigurename}{{\scshape List of Figures}}
 \renewcommand{\listtablename}{{\scshape List of Tables}}
-% \renewcommand{\bibname}{Bibliography}
+% \renewcommand{\bibname}{Bibliography}%hopefully no longer needed.
 \renewcommand{\indexname}{{\scshape Index}}
 % \def\tableofcontents{%
 %   \@starttoc{toc}\contentsname
@@ -334,9 +334,12 @@
 % \renewcommand{\@bibtitlestyle}{%
 %   \@xp\chapter\@xp*\@xp{\bibname}%
 % }
-\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} ~\\ ~\\}{}% seems like this sort of overwrite 
-% is the better spot to make formatting changes, rather than at the \bibname level.  uppercase was a name change, but smallcaps is a font change.
-% we may be setting \scshape twice.  Not that it really matters.
+% come back to this:
+\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \vspace{-\baselineskip}}{}% seems like 
+% this sort of overwrite is the better spot to make formatting changes, rather than at the \bibname level.  
+% We had two ~\\ up in there.
+% uppercase was a name change, but smallcaps is a font change.
+% This is still not quite perfect.  I feel like a perfect solution would use chapter correctly.
 % \renewcommand{\listfigurename}{\normalfont \normalsize \MakeUppercase{List of Figures}}
 % \renewcommand{\listtablename}{\normalfont \normalsize \MakeUppercase{List of Tables}}
 % \renewcommand{\bibname}{\normalfont \normalsize BIBLIOGRAPHY}
@@ -409,7 +412,7 @@
 \makeatother
 
 %%%%%%%%%%%%%
-% title
+%   title   %
 %%%%%%%%%%%%%
 
 %required stuff:
@@ -566,7 +569,7 @@
 % 			\@departmentname
 % % 			some space
 			~\vfill
-			In partial fulfullment of the requirements \\
+			In partial fulfillment of the requirements \\
 			\ifphd
 				For the Degree of Doctor of Philosophy \\ % The inconsistent capitalization between this line and the previous is required by the graduate school.
 			\else
@@ -606,7 +609,7 @@
 		\fi
 		% blank line
 		~\\ \> %the extra \> moves back to the right tab stop, which the ~\\ will have dropped.
-		% committee member list (no titles attached anywhere)
+		% committee member list (no titles attached anywhere) \@committee contains commands that mesh with this tabbing.
 % 		\hspace*{0.5in}\@committee
 		\@committee
 		\end{tabbing}
