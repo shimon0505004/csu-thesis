@@ -1,4 +1,8 @@
 \documentclass[draft, masters]{csuthesis} %draft means that it won't actually render any pictures (graphs) it will just include space for them.
+% As soon as you get this to compile, your first step
+% should be to remove the draft option, so that your
+% figures will show up.  Right now it's there so that
+% the document will compile as is, with sample figures.
 \title[Improved Multifractal Calculations]{Improved Methods for Calculating the Multifractal Spectrum for Small Data Sets}
 \author{Leif Anderson}
 \departmentname{Department of Physics}
@@ -7,9 +11,10 @@
 \coadvisor{Test Test} %optional
 \committee{Raymond Steve Robinson \and Martin Gelfand \and Patrick Shipman} %separate committee names with \and
 %committee names should not have any honorifics (i.e. NO Dr., PhD, professor, etc.)  Just names.
-\copyrighttext{Copyright by Leif Anderson 2014 \\ All Rights Reserved} %this is optional.
+\copyrighttext{Copyright by Leif Anderson 2014 \\ All Rights Reserved} %this is optional, but if used, should be of this form.
 
 %you do not need these newcommand lines.
+% They are my personal shorthand for derivatives.
 \newcommand{\deriv}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
 \newcommand{\dby}[1]{\frac{\mathrm{d}}{\mathrm{d}#1}}
 \newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
@@ -32,7 +37,7 @@ End of Abstract.
 
 \begin{acknowledgements}
 Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help understanding the rules of the graduate school; to Katherine Zaunbrecher for her proofreading and motivation help; and to many others.
-\end{acknowledgements}%this is optional.  It must be declared before maketitle, a lot like abstract.  Consider having this in a separate file.
+\end{acknowledgements}%this is optional.  It must be declared before maketitle, a lot like abstract.  Consider having this in a separate file, like ack.tex, and then using \input{ack}
 
 \maketitle
 % maketitle is a huge command in a small package.  It will render the title page, copyright page, acknowledgements, abstract, and probably a bunch of other stuff that I'm forgetting about.  If you choose not to define copyright, acknowledgements, etc, it automatically doesn't render them.
@@ -47,7 +52,7 @@ Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help understan
 \mainmatter %switches page numbering to normal, resets page counter, etc.
 \chapter{Introduction}
 
-Before beginning, here is a sentence containing a citation\cite{multifrac}.  Here is another\cite{ebalett}, and another\cite{corrdim}.  Note the order in which the numbers appear, and compare to the order in which they appear in the bibliography.  The user can choose to sort by order of citation, alphabetical order, order of publication, etc; any of the standard \verb-bibtex- options should be available.
+Before beginning, here is a sentence containing a citation~\cite{multifrac}.  Here is another~\cite{ebalett}, and another~\cite{corrdim}.  Note the order in which the numbers appear, and compare to the order in which they appear in the bibliography.  The user can choose to sort by order of citation, alphabetical order, order of publication, etc; any of the standard \verb-bibtex- options should be available.
 
 Now a little text: \lipsum[1]
 
@@ -91,12 +96,10 @@ Will you unite the disparate definitions of the current science? Also, note that
 
 \subsection{A subsection}
 
-% This is still experimental.  I hear that perhaps the full caption should go above the table, in which case we would do:
-% \begin{table}[htp]
-% \caption[short version of caption]{Longer, more detailed caption, perhaps containing a real description of the table's contents. \label{table:faketable}}
-% \begin{tabular}...
 \begin{table}[htp]
-\caption{Test Table \label{table:faketable}}
+\caption[Test table]{Here is a test table.}
+\label{table:faketable}
+% \caption[short version of caption (for list of tables/figures)]{Longer, more detailed caption, perhaps containing a real description of the table's contents.  This is the caption that is displayed with the figure or table.}
 \begin{tabular}{|c|c|c|}
 \hline
 Item 1 & Item 2 & Item 3\\
@@ -105,12 +108,9 @@ Item 1 & Item 2 & Item 3\\
 4 & 5 & 6 \\
 \hline
 \end{tabular}
-\begin{minipage}{0.9\textwidth} ~\\ \footnotesize
-Here is a table with nothing in it.  This is the caption for the table.  It's only here to make sure that the list of tables is working correctly, and as just a double check on basic table sort of stuff.
-\end{minipage}%clunky.  Need to make this look better.
 \end{table}
 
-This text here is the ``actual" location of table \ref{table:faketable}.  Since tables are floating objects, the table itself may have moved around so as to better fit on the page.  I used the options \verb-[htp]-, which should attempt to place the table \verb-h-ere, or if that fails, at the \verb-t-op of this or the next page\footnote{I'm not sure if the top option will still do next page now that we are using the single side option for amsbook.}, or if that fails, on a \verb-p-age containing only floats.  The float page gets purged at the end of each section, I think.  You can also use global options to specify that all floats end up in special places, like pages containing only floats.
+This text here is the ``actual" location of table \ref{table:faketable}.  Since tables are floating objects, the table itself may have moved around so as to better fit on the page.  I used the options \verb-[htp]-, which should attempt to place the table \verb-h-ere, or if that fails, at the \verb-t-op of this or the next page\footnote{I'm not sure if the top option will still do next page now that we are using the single side option for amsbook.}, or if that fails, on a \verb-p-age containing only floats.  The float page gets purged at the end of each section, I think.  You can also use global options to specify that all floats end up in special places, like pages containing only floats.  The grad school requires that figures of all types (tables, graphs, etc) appear after they are first cited.  \LaTeX\ may move the table/figure to be before its citation, so watch out for that.  On the plus side the graduate school may not notice if you fail to meet this requirement every time.
 
 \subsection{Another Subsection}
 
@@ -134,18 +134,18 @@ Item 1 & Item 2 & Item 3 & more items & more items & more items\\
 Here is some text inserted after the sideways table.  Hopefully the table will float, not forcing a break before this text.  If these lines are right at the top of a new page, something might be wrong. \lipsum[1-3]
 
 \backmatter
-\bibliographystyle{ieeetr} % I still need to check to see if this is what was fucking with my formatting.
+\bibliographystyle{ieeetr}
 % \bibliography{samplebibfile} %note that this is a separate file
-\bibliography{leifbib} %note that this is a separate file
+\bibliography{leifbib} %note that this is a separate file, called leifbib.bib
 
-\appendix
+\appendix %this switches to apppendix mode.  Now any new chapters will be appendices instead of chapters.
 
 % \input{appendix1.tex}
 \chapter{Automatically Generated Supplementary Material} %this will be displayed as an appendix, not a chapter.  Appendices are at the same level in the hierarchy as chapters.
 
 \section{Some Sample Material}
 
-Appendix is a strange name.  Did the name for the written material come before the name of the organ? Here\cite{infodim} is a citation in an appendix.
+Appendix is a strange name.  Did the name for the written material come before the name of the organ? Here~\cite{infodim} is a citation in an appendix.
 
 \lipsum[5-7]
 
