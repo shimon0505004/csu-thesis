@@ -4,12 +4,12 @@
 \contentsline {chapter}{\tocchapter {Chapter}{}{{\scshape List of Figures}}}{vii}
 \contentsline {chapter}{\tocchapter {Chapter}{1}{Introduction}}{1}
 \contentsline {section}{\tocsection {}{1.1}{This is a new Section}}{1}
-\contentsline {subsection}{\tocsubsection {}{1.1.1}{This is a subsection}}{1}
+\contentsline {subsection}{\tocsubsection {}{1.1.1}{This is a subsection}}{2}
 \contentsline {chapter}{\tocchapter {Chapter}{2}{New Methods}}{4}
 \contentsline {section}{\tocsection {}{2.1}{A new definition of dimension?}}{5}
 \contentsline {subsection}{\tocsubsection {}{2.1.1}{A subsection}}{5}
 \contentsline {subsection}{\tocsubsection {}{2.1.2}{Another Subsection}}{6}
-\contentsline {chapter}{{\scshape {\scshape Bibliography}}}{9}
+\contentsline {chapter}{{\scshape Bibliography}}{9}
 \contentsline {chapter}{\tocappendix {Appendix}{A}{Automatically Generated Supplementary Material}}{10}
 \contentsline {section}{\tocsection {}{A.1}{Some Sample Material}}{10}
 \contentsline {section}{\tocsection {}{A.2}{On Why I Should Work Harder}}{11}
