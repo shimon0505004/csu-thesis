@@ -334,8 +334,8 @@
 %   \@xp\chapter\@xp*\@xp{\bibname}%
 % }
 % come back to this:
-\renewcommand\bibsection{\begin{singlespace} \begin{center} {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}}  \vspace{-0.5\baselineskip}\end{center}\end{singlespace}}
-% \renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \vspace{-\baselineskip}}{}% seems like 
+% \renewcommand\bibsection{\begin{singlespace} \begin{center} {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}}  \vspace{-0.5\baselineskip}\end{center}\end{singlespace}}
+\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \setlength{\topsep}{0.5\baselineskip}}{}% seems like 
 % this sort of overwrite is the better spot to make formatting changes, rather than at the \bibname level.  
 % We had two ~\\ up in there.
 % uppercase was a name change, but smallcaps is a font change.
