@@ -23,8 +23,10 @@
 % the dumber, uglier CSU standards.
 \newif\ifphd \phdtrue
 \newif\ifmasterofscience \masterofsciencetrue
+\newif\ifsmallcapsok \smallcapsoktrue
 \DeclareOption{masters}{\phdfalse}
 \DeclareOption{nonscience}{\masterofsciencefalse}
+\DeclareOption{nosmallcaps}{\smallcapsokfalse}
 % \DeclareOption{oneside}{\OptionNotUsed}
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
@@ -234,11 +236,17 @@
 % \renewcommand{\bibname}{\MakeUppercase{Bibliography}}
 % \renewcommand{\indexname}{\MakeUppercase{Index}}
 % Hack-ish:
-\renewcommand{\contentsname}{{\scshape Table of Contents}}
-\renewcommand{\listfigurename}{{\scshape List of Figures}}
-\renewcommand{\listtablename}{{\scshape List of Tables}}
-% \renewcommand{\bibname}{Bibliography}%hopefully no longer needed.
-\renewcommand{\indexname}{{\scshape Index}}
+\ifsmallcapsok
+	\renewcommand{\contentsname}{{\scshape Table of Contents}}
+	\renewcommand{\listfigurename}{{\scshape List of Figures}}
+	\renewcommand{\listtablename}{{\scshape List of Tables}}
+	\renewcommand{\indexname}{{\scshape Index}}
+\else
+	\renewcommand{\contentsname}{\MakeUppercase{Table of Contents}}
+	\renewcommand{\listfigurename}{\MakeUppercase{List of Figures}}
+	\renewcommand{\listtablename}{\MakeUppercase{List of Tables}}
+	\renewcommand{\indexname}{\MakeUppercase{Index}}
+\fi
 % \def\tableofcontents{%
 %   \@starttoc{toc}\contentsname
 % }
@@ -468,9 +476,16 @@
 	% Instead of a list, with associated nice formatting, I will just dump the word abstract and the title
 	% in ALL CAPS BECAUSE OF CSU FORMATTING RULES, which I think is dumb, but I don't make the rules.
 % 	\begin{center}\begin{singlespace}\MakeUppercase{Abstract}\\ ~\\\end{singlespace}
-	\begin{center}\begin{singlespace}{\scshape Abstract}\\ ~\\\end{singlespace}
+	\ifsmallcapsok
+		\begin{center}\begin{singlespace}{\scshape Abstract}\\ ~\\\end{singlespace}
+		{\scshape \@title}
+		\addcontentsline{toc}{chapter}{{\scshape Abstract}}
+	\else
+		\begin{center}\begin{singlespace}{\MakeUppercase{Abstract}}\\ ~\\\end{singlespace}
+		\MakeUppercase{\@title}
+		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
+	\fi
 % 	\MakeUppercase{\@title}
-	{\scshape \@title}
 	\end{center}%blank line below here so the abstract starts indented.
 	
 }{%
@@ -501,7 +516,14 @@
   \fi
   \global\setbox\ackbox=\vtop \bgroup
 %     \begin{center}\MakeUppercase{Acknowledgements}\end{center}
-	\begin{center}{\scshape Acknowledgements}\end{center}%blank line below here so acknowledgements starts indented (to match abstract)
+	\ifsmallcapsok
+		\begin{center}{\scshape Acknowledgements}\end{center}
+		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+	\else
+		\begin{center}{\MakeUppercase{Acknowledgements}}\end{center}
+		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
+	\fi
+	%blank line below here so acknowledgements starts indented (to match abstract)
 	
 }{%
 	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
@@ -528,11 +550,17 @@
 	\begin{titlepage}
 		\begin{center}
 			\ifphd
-% 				\MakeUppercase{Dissertation}
-				{\scshape Dissertation}
+				\ifsmallcapsok
+					{\scshape Dissertation}
+				\else
+					\MakeUppercase{Dissertation}
+				\fi
 			\else
-% 				\MakeUppercase{Thesis}
-				{\scshape Thesis}
+				\ifsmallcapsok
+					{\scshape Thesis}
+				\else
+					\MakeUppercase{Thesis}
+				\fi
 			\fi
 % 			{\large\scshape Dissertation}
 % 			\textsc{Dissertation}
@@ -540,7 +568,11 @@
 % 			\begin{doublespace}
 % 			{\MakeUppercase{\@title}}
 % 			{\large\scshape \@title}
-			{\scshape \@title}
+			\ifsmallcapsok
+				{\scshape \@title}
+			\else
+				\MakeUppercase{\@title}
+			\fi
 % 			\end{doublespace}
 % 			I think subtitles are not allowed.
 % 			\ifx \@subtitle \@empty
@@ -630,14 +662,14 @@
 	\setcounter{page}{2} %the copyright page is not assigned a number nor counted
 	\unvbox\abstractbox
 % 	\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
-	\addcontentsline{toc}{chapter}{{\scshape Abstract}}
+% 	contents line added in abstract definition.
 	% Acknowledgements
 	\ifvoid\ackbox
 	\else
 		\clearpage
 		\unvbox\ackbox
 % 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
-		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+% 		add to contents in ack def.
 	\fi
 }
 
