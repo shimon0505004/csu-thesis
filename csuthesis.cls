@@ -15,7 +15,7 @@
 % See http://creativecommons.org/licenses/GPL/2.0
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{csuthesis}[2012/11/12 Colorado State University Thesis class]
+\ProvidesClass{csuthesis}[2014/01/21 Colorado State University Thesis class]
 
 
 %this is basically going to be a class wrapper that takes amsbook and
@@ -465,29 +465,51 @@
 	\fi
 	\global\setbox\abstractbox=\vtop \bgroup
 % 		\normalfont\Small
-% 		\list{}{\labelwidth\z@
-% 			\leftmargin3pc \rightmargin\leftmargin
-% 			\listparindent\normalparindent \itemindent\z@
-% 			\parsep\z@ \@plus\p@
-% 			% In order to get equation numbers indented with the rest of the abstract, we have to do this:
-% 			\let\fullwidthdisplay\relax
-% 		}%
-% 	\item[\hskip\labelsep\scshape\abstractname.]%
-	% Instead of a list, with associated nice formatting, I will just dump the word abstract and the title
-	% in ALL CAPS BECAUSE OF CSU FORMATTING RULES, which I think is dumb, but I don't make the rules.
-% 	\begin{center}\begin{singlespace}\MakeUppercase{Abstract}\\ ~\\\end{singlespace}
+% 		\begin{center}\scshape
+% 		\abstractname \\
+% 		\vspace{.5\baselineskip}
+% 		\@title
+% 		\end{center}
+		\list{}{\labelwidth\z@
+			\leftmargin0pc \rightmargin\leftmargin
+			\listparindent\normalparindent \itemindent\z@
+			\parsep\z@
+			\itemsep0.5\baselineskip
+			% In order to get equation numbers indented with the rest of the abstract, we have to do this:
+			\let\fullwidthdisplay\relax
+		}%
 	\ifsmallcapsok
-		\begin{center}\begin{singlespace}{\scshape Abstract}\\ ~\\\end{singlespace}
-		{\scshape \@title}
+		\item \begin{center}\scshape Abstract\end{center}
+		\item \begin{center}\scshape \@title\end{center}
 		\addcontentsline{toc}{chapter}{{\scshape Abstract}}
 	\else
-		\begin{center}\begin{singlespace}{\MakeUppercase{Abstract}}\\ ~\\\end{singlespace}
-		\MakeUppercase{\@title}
+		\item \begin{center}\MakeUppercase{Abstract}\end{center}
+		\item \begin{center}\MakeUppercase{\@title}\end{center}
 		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
 	\fi
-% 	\MakeUppercase{\@title}
-	\end{center}%blank line below here so the abstract starts indented.
-	
+	\item[\hskip\normalparindent]
+% 	% Instead of a list, with associated nice formatting, I will just dump the word abstract and the title
+% 	% in ALL CAPS BECAUSE OF CSU FORMATTING RULES, which I think is dumb, but I don't make the rules.
+% % 	\begin{center}\begin{singlespace}\MakeUppercase{Abstract}\\ ~\\\end{singlespace}
+% % 	\centerline{\scshape Abstract}
+% % % 	~\\
+% % 	\begin{center}\scshape \@title\end{center}
+% 	\ifsmallcapsok
+% 		\begin{center}\begin{singlespace}{\scshape Abstract}\\ ~\\\end{singlespace}
+% 		{\scshape \@title}
+% 		\addcontentsline{toc}{chapter}{{\scshape Abstract}}
+% 	\else
+% 		\begin{center}\begin{singlespace}{\MakeUppercase{Abstract}}\\ ~\\\end{singlespace}
+% 		\MakeUppercase{\@title}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
+% 	\fi
+% % 	\hspace{-\baselineskip}
+% 	\end{center}
+% % 	\begin{singlespace}\vspace{\baselineskip}\end{singlespace}
+% % 	\vspace{.5\baselineskip}
+% 	\vskip 0pt plus 0pt minus 0pt
+% 	%blank line below here so the abstract starts indented.
+% 	
 }{%
 \endlist\egroup
 % If the abstract was supposed to be typeset earlier, then \@setabstract is now equal to \relax, and we had better drop the contents of the abstract box onto the page immediately, to salvage the situation as best we can.
@@ -515,14 +537,32 @@
       \protect\maketitle\space in the csuthesis class; reported}%
   \fi
   \global\setbox\ackbox=\vtop \bgroup
-%     \begin{center}\MakeUppercase{Acknowledgements}\end{center}
+	\list{}{\labelwidth\z@
+			\leftmargin0pc \rightmargin\leftmargin
+			\listparindent\normalparindent \itemindent\z@
+			\parsep\z@
+			\itemsep0.5\baselineskip
+			% In order to get equation numbers indented with the rest of the abstract, we have to do this:
+			\let\fullwidthdisplay\relax
+		}%
 	\ifsmallcapsok
-		\begin{center}{\scshape Acknowledgements}\end{center}
+		\item \begin{center}\scshape Acknowledgements\end{center}
 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
 	\else
-		\begin{center}{\MakeUppercase{Acknowledgements}}\end{center}
+		\item \begin{center}\MakeUppercase{Acknowledgements}\end{center}
 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
 	\fi
+	\item[\hskip\normalparindent]
+% 	\ifsmallcapsok
+% % 		\begin{center}\scshape Acknowledgements\end{center}
+% 		\centerline{\scshape Acknowledgements}
+% 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+% 	\else
+% % 		\begin{center}{\MakeUppercase{Acknowledgements}}\end{center}%
+% 		\centerline{\MakeUppercase{Acknowledgements}}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
+% 	\fi
+% 	\hspace{\baselineskip}
 	%blank line below here so acknowledgements starts indented (to match abstract)
 	
 }{%
