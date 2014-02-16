@@ -15,7 +15,7 @@
 % See http://creativecommons.org/licenses/GPL/2.0
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{csuthesis}[2014/01/21 Colorado State University Thesis class]
+\ProvidesClass{csuthesis}[2014/02/16 Colorado State University Thesis class]
 
 
 %this is basically going to be a class wrapper that takes amsbook and
@@ -202,10 +202,6 @@
 % figures
 \usepackage[pdftex]{graphicx}
 
-% bibliography
-\usepackage[square,comma,numbers]{natbib} %better placed at the document level?
-% \usepackage{natbib} %better placed at the document level?
-
 % page headings and numbering
 \makeatletter
 % 	\usepackage{fancyhdr}
@@ -222,6 +218,7 @@
 % \setcounter{tocdepth}{3}  %limits how deep sections are listed in the ToC, and how far they are numbered in the body.
    %  1 goes to sections, 2 to subsections, etc.
 
+% See the ams manual thing, page 40 or so, for the beginning of the section, subsection, and table of contents formatting stuff.
 \makeatletter
 % \ifx\@tempa\undefined
 % 	\def \@tempa {}
@@ -326,28 +323,47 @@
 \def\l@figure#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
 \def\l@table#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
 
-% \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}%displays sections as 1.1, 1.2, etc rather than 1, 2, etc.
-% this turned out to be a little heavy-handed.  There are better ways to do it.
-
 % This batch of commands makes the chapter number show up within several of the other numbers.
 \numberwithin{table}{chapter}
 \numberwithin{figure}{chapter}
 \numberwithin{section}{chapter}
-% numberwithin is really more of a taste thing.  It's an option that can be set within amsbook.
+% numberwithin is really more of a taste thing.  It's an
+% option that can be set within amsbook.  However, there
+% was one complaint about table numbers not being 
+% continuous without it (multiple table 1's, from the 
+% multiple chapters).
 
-% \renewcommand{\bibsection}{%
-% }
+
+% bibliography
+\usepackage[square,comma,numbers,compress]{natbib} %better placed at the document level?
+
 % \renewcommand\bibsection{\chapter*{\bibname}}{}%existing command
 % \renewcommand{\@bibtitlestyle}{%
 %   \@xp\chapter\@xp*\@xp{\bibname}%
 % }
 % come back to this:
 % \renewcommand\bibsection{\begin{singlespace} \begin{center} {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}}  \vspace{-0.5\baselineskip}\end{center}\end{singlespace}}
-\renewcommand\bibsection{\centering {\large \scshape \bibname} \addcontentsline{toc}{chapter}{{\scshape \bibname}} \setlength{\topsep}{0.5\baselineskip}}{}% seems like 
-% this sort of overwrite is the better spot to make formatting changes, rather than at the \bibname level.  
+\renewcommand{\bibsection}{
+	\ifsmallcapsok
+		\centering {\large \scshape \bibname}
+		\addcontentsline{toc}{chapter}{{\scshape \bibname}}
+	\else
+		\centering {\large \MakeUppercase{\bibname}}
+		\addcontentsline{toc}{chapter}{\MakeUppercase{\bibname}}
+	\fi}
+% seems like this sort of overwrite is the better spot to
+% make formatting changes, rather than at the \bibname level.  
+\setlength{\bibsep}{0mm plus .5\baselineskip}
+% This allows a little bit of stretch between bibliography
+% items, so that the spacing at the top does not get
+% stretched.  that used to mess up the formatting.
+
 % We had two ~\\ up in there.
 % uppercase was a name change, but smallcaps is a font change.
-% This is still not quite perfect.  I feel like a perfect solution would use chapter correctly.
+% This is still not quite perfect.  I feel like a perfect 
+% solution would use chapter correctly (since the formatting
+% rule for this is that it has to match chapter headings).
+
 % \renewcommand{\listfigurename}{\normalfont \normalsize \MakeUppercase{List of Figures}}
 % \renewcommand{\listtablename}{\normalfont \normalsize \MakeUppercase{List of Tables}}
 % \renewcommand{\bibname}{\normalfont \normalsize BIBLIOGRAPHY}
@@ -488,8 +504,6 @@
 		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
 	\fi
 	\item[\hskip\normalparindent]
-% 	% Instead of a list, with associated nice formatting, I will just dump the word abstract and the title
-% 	% in ALL CAPS BECAUSE OF CSU FORMATTING RULES, which I think is dumb, but I don't make the rules.
 % % 	\begin{center}\begin{singlespace}\MakeUppercase{Abstract}\\ ~\\\end{singlespace}
 % % 	\centerline{\scshape Abstract}
 % % % 	~\\
@@ -566,7 +580,9 @@
 	%blank line below here so acknowledgements starts indented (to match abstract)
 	
 }{%
-	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
+	% 	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
+	
+	This \ifphd dissertation \else thesis \fi is typset in \LaTeX\ using a document class designed by Leif Anderson.%The more professional version.
 	% Go ahead, comment it out.  But if you're here you probably know how much work went into this.
 	% I call this my little "no need to thank me" easter egg.
   \endlist\egroup
@@ -682,12 +698,12 @@
 		% blank line
 		~\\ \> %the extra \> moves back to the right tab stop, which the ~\\ will have dropped.
 		% committee member list (no titles attached anywhere) \@committee contains commands that mesh with this tabbing.
-% 		\hspace*{0.5in}\@committee
 		\@committee
 		\end{tabbing}
 		\end{singlespace}
 	\end{titlepage}
 	\ifx\@copyrighttext\undefined
+ 		% If no copyright text is defined, do nothing.
 		\relax
 	\else
 		% Make a copyright page
@@ -699,17 +715,21 @@
 		\vspace*{\fill}
 		\clearpage
 	\fi
-	\setcounter{page}{2} %the copyright page is not assigned a number nor counted
+	\setcounter{page}{2}
+	% the copyright page is not assigned a number nor counted
+	% thus the abstract always starts on page ii.
 	\unvbox\abstractbox
+% 	no error handling, because the grad school requires an abstract.
 % 	\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
-% 	contents line added in abstract definition.
-	% Acknowledgements
+% 	contents line is added in abstract definition.
+	% Acknowledgements:
 	\ifvoid\ackbox
+% 	if no acknowledgements page, do nothing.
 	\else
 		\clearpage
 		\unvbox\ackbox
 % 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
-% 		add to contents in ack def.
+% 		add to contents command is in ack def.
 	\fi
 }
 
