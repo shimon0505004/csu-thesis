@@ -15,7 +15,7 @@
 % See http://creativecommons.org/licenses/GPL/2.0
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{csuthesis}[2014/02/16 Colorado State University Thesis class]
+\ProvidesClass{csuthesis}[2014/03/07 Colorado State University Thesis class]
 
 
 %this is basically going to be a class wrapper that takes amsbook and
@@ -24,9 +24,11 @@
 \newif\ifphd \phdtrue
 \newif\ifmasterofscience \masterofsciencetrue
 \newif\ifsmallcapsok \smallcapsoktrue
+\newif\ifcopyrightpage \copyrightpagefalse
 \DeclareOption{masters}{\phdfalse}
 \DeclareOption{nonscience}{\masterofsciencefalse}
 \DeclareOption{nosmallcaps}{\smallcapsokfalse}
+\DeclareOption{copyrightpage}{\copyrightpagetrue}
 % \DeclareOption{oneside}{\OptionNotUsed}
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
@@ -63,6 +65,8 @@
 	\global \let \@departmentname \@empty
 % 	\global \let \@committee \@empty
 	\global \let \@gradterm \@empty
+% 	\global \let \@gradyear \@empty
+	\gdef\@gradyear{\the\year}
 	\global \let \@advisor \@empty
 % 	There might be some inconsistencies here.
 % 	Sometimes I used \undefined, other times I used \@empty
@@ -71,23 +75,14 @@
 	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{\\ \>}{\\ \>}{#1}}}%
 	\newcommand{\@committee}{\@latex@warning@no@line{No \noexpand\committee given}}%
 	
-	% \addtoiargdef{\committee}{%
-	%   \begingroup\let\footnote\@gobble}{%
-	%   \begingroup
-	%     \renewcommand{\and}{\unskip, }
-	%   \endgroup\endgroup}
-	% ^using that command group totally didn't work. Maybe \addto@argdef?
-
-	% consider an ovverwrite of \and that has the single-spacing requirement written in, like \ignoredoublespace
-	% if such a thing exists.
-	
 	\def\author#1{\gdef\@author{#1}}%
 	\def\@author{\@latex@warning@no@line{No \noexpand\author given}}
 	\def\departmentname#1{\gdef\@departmentname{#1}}
 	\def\gradterm#1{\gdef\@gradterm{#1}}
+	\def\gradyear#1{\gdef\@gradyear{#1}}
 	\def\advisor#1{\gdef\@advisor{#1}}
 	\def\coadvisor#1{\gdef\@coadvisor{#1}}
-	\def\copyrighttext#1{\gdef\@copyrighttext{#1}}
+	\def\copyrighttext#1{\gdef\@copyrighttext{#1}}%no longer used
 \makeatother
 
 % \makeatletter
@@ -233,17 +228,18 @@
 % \renewcommand{\bibname}{\MakeUppercase{Bibliography}}
 % \renewcommand{\indexname}{\MakeUppercase{Index}}
 % Hack-ish:
-\ifsmallcapsok
-	\renewcommand{\contentsname}{{\scshape Table of Contents}}
-	\renewcommand{\listfigurename}{{\scshape List of Figures}}
-	\renewcommand{\listtablename}{{\scshape List of Tables}}
-	\renewcommand{\indexname}{{\scshape Index}}
-\else
-	\renewcommand{\contentsname}{\MakeUppercase{Table of Contents}}
-	\renewcommand{\listfigurename}{\MakeUppercase{List of Figures}}
-	\renewcommand{\listtablename}{\MakeUppercase{List of Tables}}
-	\renewcommand{\indexname}{\MakeUppercase{Index}}
-\fi
+% \ifsmallcapsok
+% 	\renewcommand{\contentsname}{{\scshape Table of Contents}}
+% 	\renewcommand{\listfigurename}{{\scshape List of Figures}}
+% 	\renewcommand{\listtablename}{{\scshape List of Tables}}
+% 	\renewcommand{\indexname}{{\scshape Index}}
+% \else
+% 	\renewcommand{\contentsname}{\MakeUppercase{Table of Contents}}
+% 	\renewcommand{\listfigurename}{\MakeUppercase{List of Figures}}
+% 	\renewcommand{\listtablename}{\MakeUppercase{List of Tables}}
+% 	\renewcommand{\indexname}{\MakeUppercase{Index}}
+% \fi
+\renewcommand{\contentsname}{Table of Contents}
 % \def\tableofcontents{%
 %   \@starttoc{toc}\contentsname
 % }
@@ -267,7 +263,6 @@
 \def\@makeschapterhead#1{\global\topskip .625in\relax
   \begingroup
 %   \fontsize{\@xivpt}{18}\bfseries\centering %from the rulebook: Do not use bold for preliminary page headings.
-% I interpreted chapter headings as "preliminary page headings"
 % added scshape here:
   \normalsize\normalfont\scshape\centering
   #1\par \endgroup
@@ -275,8 +270,13 @@
   \vskip\skip@ }
 \def\@makescsuhead#1{\global\topskip 0pc\relax
   \begingroup
-  \normalsize\normalfont\centering% this would be the "correct" spot to add smallcaps formatting, wouldn't it?
-  #1\par~\\ \endgroup
+  \normalsize\normalfont\centering% this would be the "correct" spot to add smallcaps formatting, wouldn't it?  
+%   #1\par~\\ \endgroup%add/sutract space here, probably.
+	\ifsmallcapsok
+		\scshape #1\par \endgroup
+	\else
+		\MakeUppercase{#1}\par \endgroup
+	\fi
   \skip@34\p@ \advance\skip@-\normalbaselineskip
   \vskip\skip@ }%this def is used just to make sure the table of contents name does not get bold faced or moved around
 \def\@starttoc#1#2{%
@@ -320,8 +320,12 @@
 % Thanks to Chris Strickland for these two lines.
 % They should prevent three-digit figure and table numbers
 % from running over the name of the fig/tab in the T.o.C.
-\def\l@figure#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
-\def\l@table#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
+% \def\l@figure#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
+% \def\l@table#1#2{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}{#1}{#2}}
+% Actually, this might be more appropriate: 
+% (copied from amsbook, modified)
+\def\l@figure{\@tocline{0}{3pt plus2pt}{0pt}{2.3pc}{}}
+\let\l@table=\l@figure
 
 % This batch of commands makes the chapter number show up within several of the other numbers.
 \numberwithin{table}{chapter}
@@ -346,11 +350,12 @@
 \renewcommand{\bibsection}{
 	\ifsmallcapsok
 		\centering {\large \scshape \bibname}
-		\addcontentsline{toc}{chapter}{{\scshape \bibname}}
+% 		\addcontentsline{toc}{chapter}{{\scshape \bibname}}
 	\else
 		\centering {\large \MakeUppercase{\bibname}}
-		\addcontentsline{toc}{chapter}{\MakeUppercase{\bibname}}
-	\fi}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{\bibname}}
+	\fi
+	\addcontentsline{toc}{chapter}{\bibname}}
 % seems like this sort of overwrite is the better spot to
 % make formatting changes, rather than at the \bibname level.  
 \setlength{\bibsep}{0mm plus .5\baselineskip}
@@ -497,12 +502,13 @@
 	\ifsmallcapsok
 		\item \begin{center}\scshape Abstract\end{center}
 		\item \begin{center}\scshape \@title\end{center}
-		\addcontentsline{toc}{chapter}{{\scshape Abstract}}
+% 		\addcontentsline{toc}{chapter}{{\scshape Abstract}}
 	\else
 		\item \begin{center}\MakeUppercase{Abstract}\end{center}
 		\item \begin{center}\MakeUppercase{\@title}\end{center}
-		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Abstract}}
 	\fi
+	\addcontentsline{toc}{chapter}{Abstract}
 	\item[\hskip\normalparindent]
 % % 	\begin{center}\begin{singlespace}\MakeUppercase{Abstract}\\ ~\\\end{singlespace}
 % % 	\centerline{\scshape Abstract}
@@ -561,11 +567,12 @@
 		}%
 	\ifsmallcapsok
 		\item \begin{center}\scshape Acknowledgements\end{center}
-		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+% 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
 	\else
 		\item \begin{center}\MakeUppercase{Acknowledgements}\end{center}
-		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
 	\fi
+	\addcontentsline{toc}{chapter}{Acknowledgements}
 	\item[\hskip\normalparindent]
 % 	\ifsmallcapsok
 % % 		\begin{center}\scshape Acknowledgements\end{center}
@@ -650,7 +657,8 @@
 % % 			blank line
 % 			~\\
 			\ifx\@empty\@departmentname
-				\MakeUppercase{Department Name not defined}
+% 				\MakeUppercase{Department Name not defined}
+				\emph{Attention!} $\backslash$departmentname \emph{not defined!}
 			\else
 				\@departmentname
 			\fi
@@ -670,9 +678,10 @@
 			Colorado State University \\
 			Fort Collins, Colorado \\
 			\ifx\@gradterm\@empty
-				\MakeUppercase{gradterm not defined}
+% 				\MakeUppercase{gradterm not defined}
+				\emph{Attention!} $\backslash$gradterm \emph{not defined!}
 			\else
-				\@gradterm
+				\@gradterm~\@gradyear
 			\fi
 			~\vfill
 		\end{center}
@@ -702,15 +711,21 @@
 		\end{tabbing}
 		\end{singlespace}
 	\end{titlepage}
-	\ifx\@copyrighttext\undefined
- 		% If no copyright text is defined, do nothing.
-		\relax
-	\else
+% 	\ifx\@copyrighttext\undefined
+%  		% If no copyright text is defined, do nothing.
+% 		\relax
+% 	\else
+	\ifcopyrightpage
 		% Make a copyright page
+% 		This is now automated a little better, as a document option.
 		\thispagestyle{empty}
 		\vspace*{\fill}
 		\begin{center}
-		\@copyrighttext
+% 		\@copyrighttext
+% 		Copyright by \@author\, \the\year \\ All Rights Reserved
+		Copyright by \@author~\@gradyear \\ All Rights Reserved
+% 		NOTE that this defaults to the current year.
+% 		If you want to copyright in a different year, change this.
 		\end{center}
 		\vspace*{\fill}
 		\clearpage
