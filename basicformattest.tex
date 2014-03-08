@@ -1,4 +1,4 @@
-\documentclass[draft, masters]{csuthesis} %draft means that it won't actually render any pictures (graphs) it will just include space for them.
+\documentclass[draft, masters, copyrightpage]{csuthesis} %draft means that it won't actually render any pictures (graphs) it will just include space for them.
 % As soon as you get this to compile, your next step
 % should be to remove the draft option, so that your
 % figures will show up.  Right now it's there so that
@@ -9,16 +9,23 @@
 % you can use the "nosmallcaps" option to eliminate
 % all smallcaps from the preliminary pages.
 
+% The "copyrightpage" option tells the document class
+% to generate a copyright page.  If you don't want a
+% copyright page, erase that option.
+
 % Now, change the following fields to match your thesis:
 \title{Improved Methods for Calculating the Multifractal Spectrum for Small Data Sets}
 \author{Leif Anderson}
 \departmentname{Department of Physics}
-\gradterm{Spring 2014} %The semester that you are going to turn this in.
+\gradterm{Spring} %The semester that you are going to turn this in.
+% The year will automatically be set to the current year.  If you
+% want to modify the year manually, use this command:
+%\gradyear{2014}
+% But otherwise, ignore that command.
 \advisor{Richard Eykholt}
 \coadvisor{Test Test} %optional
 \committee{Raymond Steve Robinson \and Martin Gelfand \and Patrick Shipman} %separate committee names with \and
 %committee names should not have any honorifics (i.e. NO Dr., PhD, professor, etc.)  Just names.
-\copyrighttext{Copyright by Leif Anderson 2014 \\ All Rights Reserved} %this is optional, but if used, should be of this form.
 
 % you do not need these newcommand lines.
 % They are my personal shorthand for derivatives.
