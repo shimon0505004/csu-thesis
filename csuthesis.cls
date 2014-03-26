@@ -28,7 +28,7 @@
 \DeclareOption{masters}{\phdfalse}
 \DeclareOption{nonscience}{\masterofsciencefalse}
 \DeclareOption{nosmallcaps}{\smallcapsokfalse}
-\DeclareOption{copyrightpage}{\copyrightpagetrue}
+% \DeclareOption{copyrightpage}{\copyrightpagetrue}
 % \DeclareOption{oneside}{\OptionNotUsed}
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
@@ -715,9 +715,11 @@
 %  		% If no copyright text is defined, do nothing.
 % 		\relax
 % 	\else
-	\ifcopyrightpage
+% 	\ifcopyrightpage
 		% Make a copyright page
 % 		This is now automated a little better, as a document option.
+% 		Copyright page is no longer optional as of feb 2014.
+% 		Now the option is removed and it just always happens.
 		\thispagestyle{empty}
 		\vspace*{\fill}
 		\begin{center}
@@ -729,7 +731,7 @@
 		\end{center}
 		\vspace*{\fill}
 		\clearpage
-	\fi
+% 	\fi
 	\setcounter{page}{2}
 	% the copyright page is not assigned a number nor counted
 	% thus the abstract always starts on page ii.
@@ -748,6 +750,27 @@
 	\fi
 }
 
+
+\newcommand{\preliminarypage}[2]{
+	\clearpage
+	\list{}{\labelwidth\z@
+			\leftmargin0pc \rightmargin\leftmargin
+			\listparindent\normalparindent \itemindent\z@
+			\parsep\z@
+			\itemsep0.5\baselineskip
+			% In order to get equation numbers indented with the rest of the abstract, we have to do this:
+			\let\fullwidthdisplay\relax
+		}%
+	\ifsmallcapsok
+		\item \begin{center}\scshape #1\end{center}
+% 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+	\else
+		\item \begin{center}\MakeUppercase{#1}\end{center}
+% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
+	\fi
+	\addcontentsline{toc}{chapter}{#1}
+	\item[\hskip\normalparindent]#2
+	\clearpage}
 \makeatother
 
 % Dan's abstract solution:
