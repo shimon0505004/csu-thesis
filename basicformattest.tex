@@ -1,4 +1,6 @@
-\documentclass[draft, masters, copyrightpage]{csuthesis} %draft means that it won't actually render any pictures (graphs) it will just include space for them.
+\documentclass[draft, masters]{csuthesis} 
+%draft means that it won't actually render any pictures (graphs) it will just include space for them.
+
 % As soon as you get this to compile, your next step
 % should be to remove the draft option, so that your
 % figures will show up.  Right now it's there so that
@@ -9,9 +11,10 @@
 % you can use the "nosmallcaps" option to eliminate
 % all smallcaps from the preliminary pages.
 
-% The "copyrightpage" option tells the document class
-% to generate a copyright page.  If you don't want a
-% copyright page, erase that option.
+% Copyright pages are mandatory as of February 2014
+% so now that process is entirely automated, generating
+% a page with your name and your graduation year. No
+% need for you to do anything.
 
 % Now, change the following fields to match your thesis:
 \title{Improved Methods for Calculating the Multifractal Spectrum for Small Data Sets}
@@ -44,6 +47,14 @@
 % already included in the .cls file.  You can search for 
 % them and remove them if you want to.
 
+% If you want to make additional changes to your formatting,
+% do it here.  For example, any \usepackage{...} commands 
+% belong here, along with any special functions, etc. If you
+% want to change something that I did in the class file, I
+% recommend doing that by copying and pasting the part that
+% you want to change to right here, and modifying it within
+% this document.
+
 \begin{document}
 \frontmatter
 %turns the page numbering to roman, and does some other stuff.
@@ -71,6 +82,12 @@ Thanks to Dan Brake, Fran Campana, and Natalie Anderson for their help understan
 \tableofcontents %don't move this around too much
 \listoftables %optional, but this is the spot it should go
 \listoffigures %optional, but this is the right location for it
+
+% Any additional optional preliminary pages (e.g. List of Symbols)
+% go right here, with the \preliminarypage{} command.  Consult
+% the rules to see what order they are supposed to be in.  For
+% examples of how to use the \preliminarypage command, see my 
+% other format test file, symbolstest.tex
 
 \mainmatter %switches page numbering to normal, resets page counter, etc.
 % This is the start of the main writing, but there are a couple more
@@ -197,6 +214,8 @@ Let me address that issue with the following classical arguments: \lipsum[1-2]
 % \input{abstract}
 % \input{acknowledgements}
 % \maketitle
+% \tableofcontents
+% \listoffigures
 % \mainmatter
 % \input{ch1intro}
 % \input{anotherchapter}
