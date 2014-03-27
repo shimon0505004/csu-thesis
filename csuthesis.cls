@@ -8,9 +8,6 @@
 % Much additional input provided by Dr. Dan Brake
 % and... others to come
 
-% Based on work by 
-% Ankur Dave <ankurdave@gmail.com>
-% in 2009
 % Licensed under the CC-GNU GPL version 2.0 or later.
 % See http://creativecommons.org/licenses/GPL/2.0
 
@@ -21,6 +18,8 @@
 %this is basically going to be a class wrapper that takes amsbook and
 % changes the formatting as little as possible to make it conform to 
 % the dumber, uglier CSU standards.
+
+% Class options:
 \newif\ifphd \phdtrue
 \newif\ifmasterofscience \masterofsciencetrue
 \newif\ifsmallcapsok \smallcapsoktrue
@@ -35,29 +34,7 @@
 \ProcessOptions\relax
 \LoadClass[12pt, oneside]{amsbook}
 
-% fields that user can set (in addition to title, author, etc)
-
-% \newcommand{\committeeand}{\\ \>}
-% \newcommand{\committee}[2][]{%
-% 	\ifx\@empty\committees
-% 		\gdef\committees{#2}%
-% 	\else
-% 		\g@addto@macro\committees{\committeeand#2}%
-% % 		\g@addto@macro\addresses{\committee{}}%
-% 	\fi
-% 	\@ifnotempty{#1}{%
-% 		\ifx\@empty\shortcommittees
-% 			\gdef\shortcommittees{#1}%
-% 		\else
-% 			\g@addto@macro\shortcommittees{\committeeand#1}%
-% 		\fi
-% 	}%
-% }
-% \edef\committee{\@nx\@dblarg
-% 	\@xp\@nx\csname\string\committee\endcsname}
-% \let\shortcommittees\@empty \let\committees\@empty
-
-
+% User-specified global stuff (author, department, etc):
 \makeatletter
 	\global \let \@author \@empty 
 	\global \let \@date \@empty 
@@ -68,9 +45,6 @@
 % 	\global \let \@gradyear \@empty
 	\gdef\@gradyear{\the\year}
 	\global \let \@advisor \@empty
-% 	There might be some inconsistencies here.
-% 	Sometimes I used \undefined, other times I used \@empty
-	
 	
 	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{\\ \>}{\\ \>}{#1}}}%
 	\newcommand{\@committee}{\@latex@warning@no@line{No \noexpand\committee given}}%
@@ -85,24 +59,11 @@
 	\def\copyrighttext#1{\gdef\@copyrighttext{#1}}%no longer used
 \makeatother
 
-% \makeatletter
-% 	\newcommand{\candidatenum}[1]{\def \@candidatenum {#1}}
-% 	\newcommand{\subtitle}[1]{\def \@subtitle {#1}}
-% 	\newcommand{\subject}[1]{\def \@subject {#1}}
-% 	\newcommand{\wordcount}[1]{\def \@wordcount {#1}}
-% 	\newcommand{\email}[1]{\def \@email {#1}}
-% 	\newcommand{\departmentname}[1]{\def \@deptartmentname {#1}}
-% 	\candidatenum{}
-% 	\subtitle{}
-% 	\subject{}
-% 	\wordcount{}
-% 	\email{}
-% 	\departmentname{}
-% \makeatother
-
 % margins
 \usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
 % \usepackage[top=.8125in,bottom=.8125in,left=.8125in,right=.8125in]{geometry}
+
+% Goddamn sideways shit:
 
 % \usepackage{pdflscape}
 \usepackage[pdftex]{lscape}
@@ -161,6 +122,12 @@
 % }
 
 \NewEnviron{sidewayspage}{
+% This is still a little hack-ish.  It runs into problems
+% with sideways content that extends past one page.
+% For multiple page sideways stuff, consider \begin{landscape}
+% and a fancyhdr hack to move all pagenumbers sideways.
+% The main goal here is to build a sideways endvironment that
+% is sort of a float.
 	\def\tempreacharound{\clearpage\begin{landscape}\thispagestyle{empty}~\vfill}
 	\expandafter\expandafter\expandafter\afterpage\expandafter\expandafter\expandafter{\expandafter\tempreacharound % DON'T EVEN ASK
 	% the \BODY command loses its meaning if it is used inside another environment... sometimes.  Trust me, we need to do this.
@@ -191,21 +158,14 @@
 \setstretch{2}
 % \usepackage{doublespace}
 
-% references
-% \usepackage{varioref}
-
 % figures
 \usepackage[pdftex]{graphicx}
 
 % page headings and numbering
 \makeatletter
 % 	\usepackage{fancyhdr}
-% 	\pagestyle{fancy}
-% % 	\renewcommand{\footrulewidth}{\headrulewidth} %this would put a line across the footer.
-% 	\renewcommand{\headrulewidth}{0pt} %eliminates the default line across the header
-% 	\fancyhf{} %clears the header and footer
-% 	\fancyfoot[C]{\thepage} % places the page number, centered, in the footer.
-% 	% \makeatletter \pagestyle{plain} or something similar may have worked more effeciently.
+% ^ Not needed.  All we're doing is stripping away formatting.
+% This works perfectly:
 	\pagestyle{plain}
 \makeatother
 
@@ -215,12 +175,6 @@
 
 % See the ams manual thing, page 40 or so, for the beginning of the section, subsection, and table of contents formatting stuff.
 \makeatletter
-% \ifx\@tempa\undefined
-% 	\def \@tempa {}
-% \fi
-% \ifx\@nil\undefined
-% 	\def \@nil {}
-% \fi
 % \renewcommand{\contentsname}{\normalfont \normalsize \MakeUppercase{Table of Contents}}
 % \renewcommand{\contentsname}{\MakeUppercase{Table of Contents}}
 % \renewcommand{\listfigurename}{\MakeUppercase{List of Figures}}
@@ -239,6 +193,7 @@
 % 	\renewcommand{\listtablename}{\MakeUppercase{List of Tables}}
 % 	\renewcommand{\indexname}{\MakeUppercase{Index}}
 % \fi
+% ^ Handled better in another place now.
 \renewcommand{\contentsname}{Table of Contents}
 % \def\tableofcontents{%
 %   \@starttoc{toc}\contentsname
@@ -249,6 +204,8 @@
 %   \fontsize{\@xivpt}{18}\bfseries\centering %from the rulebook: Do not use bold for preliminary page headings.
 % I interpreted chapter headings as "preliminary page headings"
 % addedthe scshape command here:
+% If you want to change this, copy it to your document header,
+% and modify your local copy.
 	\normalsize\normalfont\scshape\centering
     \ifnum\c@secnumdepth>\m@ne
       \leavevmode \hskip-\leftskip
@@ -306,6 +263,9 @@
 % {\baselineskip}%            % the before skip
 % {0.5\baselineskip}%          % the after skip
 % {\normalfont\centering}} % the style
+% To modify these, best practice is to copy them into your header
+% and modify your header.  That way your changes will be persistent
+% and not overwritten if you download an updated version of the class.
 \def\section{\@startsection{section}{1}%
   \z@{.7\linespacing\@plus\linespacing}{.5\linespacing}%
   {\normalfont\scshape\centering}} %writes the section headings in smallcaps, centered.
@@ -340,6 +300,9 @@
 
 % bibliography
 \usepackage[square,comma,numbers,compress]{natbib} %better placed at the document level?
+% Soon I will be gone, and it will be someone else's problem
+% to wonder if the changes below are specific to natbib or if
+% they are general enough to work for any bibliography.
 
 % \renewcommand\bibsection{\chapter*{\bibname}}{}%existing command
 % \renewcommand{\@bibtitlestyle}{%
@@ -374,6 +337,7 @@
 % \renewcommand{\bibname}{\normalfont \normalsize BIBLIOGRAPHY}
 % \renewcommand{\indexname}{\vspace{9mm plus 0mm minus 0mm} \hfill \centering \normalfont \normalsize INDEX \hfill}
 % \thm@headfont{\normalfont}
+% ^^ again, better handled elsewhere now.
 \makeatother
 
 % \makeatletter
@@ -417,6 +381,9 @@
 % \renewcommand\listfigurename{\vspace{-27.25mm plus 0mm minus 0mm} \hfill \centering \normalfont \normalsize LIST OF FIGURES \hfill}
 % \renewcommand{\bibname}{\vspace{3.25mm plus 0mm minus 0mm} \hfill \centering \normalfont \normalsize BIBLIOGRAPHY \hfill}
 % \renewcommand{\indexname}{\vspace{9mm plus 0mm minus 0mm} \hfill \centering \normalfont \normalsize INDEX \hfill}
+% <end of Dan's solution>
+
+% Here is my solution, which is an overwrite of the more basic definition.
 
 %dotted line for TOC.  This is the definition of \@tocline, copied out of amsbook.
 \makeatletter
@@ -477,7 +444,12 @@
 % blank line
 % committee member list (no titles attached anywhere)
 % NO PAGE NUMBER ON THIS PAGE but it is page 1 of frontmatter (so page i, unlabeled)
+% That last part is a little silly, since it is immediately followed
+% by an unlabeled AND uncounted copyright page.  Better to just 
+% specify that the abstract is page ii.
 
+% As a leadin to the title page, here is the Abstract 
+% definition, copied from AMSbook and modified:
 \makeatletter
 \renewenvironment{abstract}{%
 	\ifx\maketitle\relax
@@ -535,6 +507,7 @@
 % If the abstract was supposed to be typeset earlier, then \@setabstract is now equal to \relax, and we had better drop the contents of the abstract box onto the page immediately, to salvage the situation as best we can.
 \ifx\@setabstract\relax \@setabstracta \fi
 }
+% AMS comment about abstract:
 % % Because the abstract might be postponed until the end of an article, we can-not simply use the fact of a preceding \maketitle to tell whether \endabstract should immediately put the abstract box contents on the page. So we use an auxiliary function that will be reset to no-op once we have passed the point where the abstract should normally be typeset.
 % This part should still be intact in the amsbook class.
 % \def\@setabstract{\@setabstracta \global\let\@setabstract\relax}
@@ -548,7 +521,7 @@
 % \fi
 % }
 % the acknowledgements will basically be a copy of the abstract.
-% In fact, I copied the definition of abstract, and changed a
+% In fact, I copied the AMS definition of abstract, and changed a
 % couple tiny things.  I even copied their comments mostly.
 \newbox\ackbox
 \newenvironment{acknowledgements}{%
@@ -587,6 +560,7 @@
 	%blank line below here so acknowledgements starts indented (to match abstract)
 	
 }{%
+	% Old version of the 'easter egg':
 	% 	Great thanks are also due to Leif Anderson for building this \LaTeX\ document class, allowing me to meet the graduate school formatting requirements with no effort on my part. % You're welcome.
 	
 	This \ifphd dissertation \else thesis \fi is typset in \LaTeX\ using a document class designed by Leif Anderson.%The more professional version.
@@ -602,7 +576,7 @@
     \skip@20\p@ \advance\skip@-\lastskip
     \advance\skip@-\baselineskip \vskip\skip@
     \box\ackbox
-    \prevdepth\z@ % because \abstractbox is a vtop
+    \prevdepth\z@ % because \abstractbox is a vtop (I have no idea what that means.)
   \fi
 }
 % Now we overwrite \maketitle
@@ -711,10 +685,12 @@
 		\end{tabbing}
 		\end{singlespace}
 	\end{titlepage}
+% 	Old version:
 % 	\ifx\@copyrighttext\undefined
 %  		% If no copyright text is defined, do nothing.
 % 		\relax
 % 	\else
+% 	Newer version, but still outdated:
 % 	\ifcopyrightpage
 		% Make a copyright page
 % 		This is now automated a little better, as a document option.
@@ -741,7 +717,7 @@
 % 	contents line is added in abstract definition.
 	% Acknowledgements:
 	\ifvoid\ackbox
-% 	if no acknowledgements page, do nothing.
+% 	if no acknowledgements page, do nothing. (Maybe add a \relax?  Seems to work without it.)
 	\else
 		\clearpage
 		\unvbox\ackbox
@@ -758,127 +734,35 @@
 			\listparindent\normalparindent \itemindent\z@
 			\parsep\z@
 			\itemsep0.5\baselineskip
-			% In order to get equation numbers indented with the rest of the abstract, we have to do this:
 			\let\fullwidthdisplay\relax
 		}%
 	\ifsmallcapsok
 		\item \begin{center}\scshape #1\end{center}
-% 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
 	\else
 		\item \begin{center}\MakeUppercase{#1}\end{center}
-% 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
 	\fi
 	\addcontentsline{toc}{chapter}{#1}
-	\item[\hskip\normalparindent]#2
+	\item[\hskip0pt]#2%this will produce no indentation.  Deal with it.
+% 	use \indent to indent your first paragraph if you want to.
 	\clearpage}
+
+% \newcommand{\preliminarypage}[2]{
+% 	\clearpage
+% 	\ifsmallcapsok
+% 		\begin{center}\scshape #1\end{center}
+% % 		\addcontentsline{toc}{chapter}{{\scshape Acknowledgements}}
+% 	\else
+% 		\begin{center}\MakeUppercase{#1}\end{center}
+% % 		\addcontentsline{toc}{chapter}{\MakeUppercase{Acknowledgements}}
+% 	\fi
+% % 	\vspace{.5\baselineskip}
+% 	\addcontentsline{toc}{chapter}{#1}
+% #2
+% \clearpage}
+
 \makeatother
-
-% Dan's abstract solution:
-% \renewcommand{\abstract}{
-% \makeatletter
-% % \let\originalabstractcall=\abstract
-% % \def \abstract {%
-% \renewcommand{\abstract}{
-% % 	\newpage\null\vspace*{ -14mm plus0mm minus0mm}  %adjust the ABSTRACT word up to the top.
-% 	\begin{center}
-% 	{\MakeUppercase{Abstract}} \\
-% % 	[\baselineskip]\uppercase\expandafter{\Ztitle}
-% 	{\MakeUppercase{\@title}}
-% 	\end{center}
-% 	%\vskip 20pt plus 2pt minus 2pt
-% }
-% \makeatother
-
-% Copied from the ftp://ftp.ams.org/ams/amslatex/classes/amsclass.pdf, page 33/34:
-% In AMS document classes, the abstract should be placed before \maketitle
-% (otherwise the desired ordering of frontmatter elements cannot be ensured in all
-% cases).
-% 897 \newbox\abstractbox
-% We start by checking whether \maketitle has already been used (in which case
-% it was reset to \relax); if so, we give a warning that the abstract should be
-% placed before \maketitle.
-% 898 \newenvironment{abstract}{%
-% 899 \ifx\maketitle\relax
-% 900 \ClassWarning{\@classname}{Abstract should precede
-% 901 \protect\maketitle\space in AMS document classes; reported}%
-% 902 \fi
-% 903 \global\setbox\abstractbox=\vtop \bgroup
-% 904 \normalfont\Small
-% 905 \list{}{\labelwidth\z@
-% 906 \leftmargin3pc \rightmargin\leftmargin
-% 907 \listparindent\normalparindent \itemindent\z@
-% 908 \parsep\z@ \@plus\p@
-% In order to get equation numbers indented with the rest of the abstract, we have
-% to do this:
-% 909 \let\fullwidthdisplay\relax
-% 910 }%
-% 911 \item[\hskip\labelsep\scshape\abstractname.]%
-% 912 }{%
-% 913 \endlist\egroup
-% If the abstract was supposed to be typeset earlier, then \@setabstract is now
-% equal to \relax, and we had better drop the contents of the abstract box onto
-% the page immediately, to salvage the situation as best we can.
-% 914 \ifx\@setabstract\relax \@setabstracta \fi
-% 915 }
-% Because the abstract might be postponed until the end of an article, we can-
-% not simply use the fact of a preceding \maketitle to tell whether \endabstract
-% should immediately put the abstract box contents on the page. So we use an
-% auxiliary function that will be reset to no-op once we have passed the point
-% where the abstract should normally be typeset.
-% 916 \def\@setabstract{\@setabstracta \global\let\@setabstract\relax}
-% 917 \def\@setabstracta{%
-% 918 \ifvoid\abstractbox
-% 919 \else
-% 920 \skip@20\p@ \advance\skip@-\lastskip
-% 921 \advance\skip@-\baselineskip \vskip\skip@
-% 922 \box\abstractbox
-% 923 \prevdepth\z@ % because \abstractbox is a vtop
-% 924 \fi
-% 925 }
-% Title page environment does nothing much; information and formatting to
-% be provided by the user.
-% 926 \def\titlepage{%
-% 927 hamsbooki \cleardoublepage
-% 928 hamsart j amsproci \clearpage
-% 929 \thispagestyle{empty}\setcounter{page}{0}}
-% 930 \def\endtitlepage{\newpage}
 
 
 % \makeatletter
 % \usepackage[compact]{titlesec}
-% 
-% % \titleformat{\chapter}[display]  %display gives the two-line effect
-% % 	{\vspace{0mm plus 0mm minus 0mm} \normalfont \normalsize \filcenter}%\Large
-% % 	{\MakeUppercase{\chaptertitlename}\  \thechapter:}
-% % 	{1em}
-% % 	{}
-% % 	{  \normalsize}
-% 
-% \titleformat{\section}[block]  %block gives one line headings 
-% 	{\normalfont \normalsize \filcenter } %\large \normalsize
-% 	{\thesection.}
-% 	{1em}
-% 	{}
-% 	{\normalsize}
-% 	
-% \titleformat{\subsection}[block]
-% 	{\scshape \normalsize \filcenter }
-% 	{ \thesubsection }
-% 	{1em}
-% 	{}
-% 	{  \normalsize}
-% 		
-% \titleformat{\subsubsection}[block]
-% 	{\normalfont \normalsize \filcenter }
-% 	{ \thesubsubsection }
-% 	{1em}
-% 	{}
-% 	{  \normalsize}
-% 	
-% \titleformat{\paragraph}[block]
-% 	{\bfseries \normalsize \hspace{1cm} }
-% 	{ \theparagraph }
-% 	{0pt}
-% 	{}
-% 	{ \normalsize}
-% \makeatother
+% Don't use titlesec.
