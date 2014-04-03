@@ -1,4 +1,5 @@
 % csuthesis class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Designed by Leif Anderson to meet the bullshit
 % requirements of the Colorado State University
 % Graduate School for the formatting of theses
@@ -11,13 +12,18 @@
 % Licensed under the CC-GNU GPL version 2.0 or later.
 % See http://creativecommons.org/licenses/GPL/2.0
 
+% Areas that you might need to copy to your own header,
+% or maybe comment out, are marked with big lines like the
+% following:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{csuthesis}[2014/03/07 Colorado State University Thesis class]
+\ProvidesClass{csuthesis}[2014/04/02 Colorado State University Thesis class]
 
 
-%this is basically going to be a class wrapper that takes amsbook and
-% changes the formatting as little as possible to make it conform to 
-% the dumber, uglier CSU standards.
+% This is basically going to be a class wrapper that takes
+% amsbook and changes the formatting as little as possible
+% to make it conform to  the dumber, uglier CSU standards.
 
 % Class options:
 \newif\ifphd \phdtrue
@@ -28,7 +34,8 @@
 \DeclareOption{nonscience}{\masterofsciencefalse}
 \DeclareOption{nosmallcaps}{\smallcapsokfalse}
 % \DeclareOption{copyrightpage}{\copyrightpagetrue}
-% \DeclareOption{oneside}{\OptionNotUsed}
+\DeclareOption{copyrightpage}{\OptionNotUsed}
+% (As of feb 2014 the copyright page is mandatory.)
 \DeclareOption{twoside}{\OptionNotUsed}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{amsbook}}
 \ProcessOptions\relax
@@ -71,18 +78,6 @@
 \usepackage{afterpage}
 \usepackage{environ}
 \makeatletter
-% \newenvironment{sidewayspage}{
-% % 	\csname \afterpage{ \endcsname
-% %		\clearpage
-% 	\begin{landscape}
-% 	\thispagestyle{empty}
-% % 	\begin{table}[p]
-% }{
-% % 	\end{table}
-% 	~\vfill\centerline{\footnotesize\thepage}
-% 	\end{landscape}
-% % 	\csname } \endcsname
-% }
 % \newenvironment{sidewayspage}{
 % % 	store shit in a box
 % \newsavebox{\tempboxside}
@@ -155,8 +150,22 @@
 \usepackage{setspace}
 % \doublespace
 % \setstretch{1.66}
-\setstretch{2}
+% \setstretch{2}
 % \usepackage{doublespace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OH MY GOD THE GRAD SCHOOL WAS ANGRY ABOUT THE SPACE 
+% AFTER FIGURE 3.2!
+% Copy some of these lines to the header (before 
+% \begin{document}) of your own file, and change the numbers
+% around until the big space goes away.
+\setstretch{1.95} %line spacing.  
+% Should be 2 for double spacing, but this works better.
+\setlength{\intextsep}{12pt plus 2pt minus 2pt} 
+%spacing above+below a figure/table that has text above and below it
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt} 
+%spacing below/above a figure or table at the top/bottom of a page.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % figures
 \usepackage[pdftex]{graphicx}
@@ -297,9 +306,14 @@
 % continuous without it (multiple table 1's, from the 
 % multiple chapters).
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % bibliography
-\usepackage[square,comma,numbers,compress]{natbib} %better placed at the document level?
+% if you use chicago style citations, comment out
+% everything between the %%%%%%%%%%% lines.  Then see the
+% example file dealing with chicago citations for some
+% hints about how to modify your own files.
+\usepackage[square,comma,numbers,compress]{natbib} 
+% better placed at the document level?
 % Soon I will be gone, and it will be someone else's problem
 % to wonder if the changes below are specific to natbib or if
 % they are general enough to work for any bibliography.
@@ -331,6 +345,9 @@
 % This is still not quite perfect.  I feel like a perfect 
 % solution would use chapter correctly (since the formatting
 % rule for this is that it has to match chapter headings).
+
+% End of the bibliography modifications section.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \renewcommand{\listfigurename}{\normalfont \normalsize \MakeUppercase{List of Figures}}
 % \renewcommand{\listtablename}{\normalfont \normalsize \MakeUppercase{List of Tables}}
