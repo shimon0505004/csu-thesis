@@ -32,6 +32,8 @@
 \newif\ifcopyrightpage \copyrightpagefalse
 \DeclareOption{masters}{\phdfalse}
 \DeclareOption{nonscience}{\masterofsciencefalse}
+\Declareoption{masterof}{\masterofsciencefalse}
+%there are a lot of different types of masters.
 \DeclareOption{nosmallcaps}{\smallcapsokfalse}
 % \DeclareOption{copyrightpage}{\copyrightpagetrue}
 \DeclareOption{copyrightpage}{\OptionNotUsed}
@@ -51,6 +53,7 @@
 	\global \let \@gradterm \@empty
 % 	\global \let \@gradyear \@empty
 	\gdef\@gradyear{\the\year}
+  \gdef\@masterof{Fine Arts}
 	\global \let \@advisor \@empty
 	
 	\newcommand{\committee}[1]{\gdef\@committee{\xandlist{\\ \> }{\\ \>}{\\ \>}{#1}}}%
@@ -61,6 +64,7 @@
 	\def\departmentname#1{\gdef\@departmentname{#1}}
 	\def\gradterm#1{\gdef\@gradterm{#1}}
 	\def\gradyear#1{\gdef\@gradyear{#1}}
+  \def\masterof#1{\gdef\@masterof{#1}}
 	\def\advisor#1{\gdef\@advisor{#1}}
 	\def\coadvisor#1{\gdef\@coadvisor{#1}}
 	\def\copyrighttext#1{\gdef\@copyrighttext{#1}}%no longer used
@@ -663,7 +667,7 @@
 				\ifmasterofscience
 					For the Degree of Master of Science \\
 				\else
-					For the Degree of Master of the Arts \\
+					For the Degree of Master of \@masterof \\
 				\fi
 			\fi
 			Colorado State University \\
