@@ -32,7 +32,7 @@
 \newif\ifcopyrightpage \copyrightpagefalse
 \DeclareOption{masters}{\phdfalse}
 \DeclareOption{nonscience}{\masterofsciencefalse}
-\Declareoption{masterof}{\phdfalse\masterofsciencefalse}
+\DeclareOption{masterof}{\phdfalse\masterofsciencefalse}
 %there are a lot of different types of masters.
 \DeclareOption{nosmallcaps}{\smallcapsokfalse}
 % \DeclareOption{copyrightpage}{\copyrightpagetrue}
