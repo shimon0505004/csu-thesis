@@ -18,7 +18,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{csuthesis}[2014/04/02 Colorado State University Thesis class]
+\ProvidesClass{csuthesis}[2014/06/02 Colorado State University Thesis class]
 
 
 % This is basically going to be a class wrapper that takes
@@ -72,6 +72,7 @@
 
 % margins
 \usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\footskip 0.5in %not fully tested, but I think this is the thing to modify.
 % \usepackage[top=.8125in,bottom=.8125in,left=.8125in,right=.8125in]{geometry}
 
 % Goddamn sideways shit:
